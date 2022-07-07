@@ -15,6 +15,7 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: ghcr.io/joshuawe45/we45-app:latest
+        imagePullPolicy: Always
+        image: joshuawe45/argo-test:latest
         ports:
         - containerPort: 80
