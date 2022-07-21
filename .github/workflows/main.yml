@@ -5,6 +5,10 @@ on:
 
 jobs:
   build:
+    permissions:
+        contents: read
+        packages: write
+        id-token: write
     name: 'Build'
     runs-on: ubuntu-latest
     steps:
@@ -22,4 +26,10 @@ jobs:
           context: .
           push: true
           tags: |
-            ghcr.io/joshuawe45/we45-app:latest
+            ghcr.io/joshuawe45/cosign-app:latest
+      - name: Install Cosign
+        uses: sigstore/cosign-installer@main
+      - name: Sign the images with GitHub OIDC Token **not production ready**
+        run: cosign sign ghcr.io/joshuawe45/cosign-app:latest
+        env:
+          COSIGN_EXPERIMENTAL: true
